@@ -19,8 +19,8 @@
   <style>
     html {
       background:#018DED url(http://unsplash.it/1500/1000?image=881&blur=50);
-      background-size:cover;
-      font-family:'helvetica neue';
+      background-size: cover;
+      font-family: 'helvetica neue';
       text-align: center;
       font-size: 10px;
     }
@@ -28,8 +28,8 @@
     body {
       margin: 0;
       font-size: 2rem;
-      display:flex;
-      flex:1;
+      display: flex;
+      flex: 1;
       min-height: 100vh;
       align-items: center;
     }
@@ -37,11 +37,11 @@
     .clock {
       width: 30rem;
       height: 30rem;
-      border:20px solid white;
-      border-radius:50%;
-      margin:50px auto;
+      border: 20px solid white;
+      border-radius: 50%;
+      margin: 50px auto;
       position: relative;
-      padding:2rem;
+      padding: 2rem;
       box-shadow:
         0 0 0 4px rgba(0,0,0,0.1),
         inset 0 0 0 3px #EFEFEF,
@@ -57,17 +57,46 @@
     }
 
     .hand {
-      width:50%;
-      height:6px;
+      width: 50%;
+      height: 6px;
       background:black;
       position: absolute;
-      top:50%;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.1s;
     }
 
   </style>
 
   <script>
 
+      const secondsHand = document.querySelector('.second-hand');
+      const minsHand = document.querySelector('.min-hand');
+      const hoursHand = document.querySelector('.hour-hand');
+
+      function setDate() {
+        const now = new Date();
+        
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+        
+        const secondsDeg = ((seconds/60)*360)+90;
+        const minutesDeg = ((minutes/60)*360)+90;
+        const hoursDeg = ((hours/12)*360)+90;
+
+        secondsHand.style.transform = `rotate(${secondsDeg}deg)`;
+        minsHand.style.transform = `rotate(${minutesDeg}deg)`;
+        hoursHand.style.transform = `rotate(${hoursDeg}deg)`;
+
+        // console.log(now);
+        // console.log(seconds);
+        // console.log(minutes);
+        // console.log(hours);
+      }
+
+      setInterval(setDate, 1000);
 
   </script>
 </body>
